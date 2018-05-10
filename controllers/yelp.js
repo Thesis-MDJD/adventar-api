@@ -6,6 +6,7 @@ export const getBusinessById = async (req, res) => {
     res.json(data);
   } catch (err) {
     console.log('getBusinessById', err);
+    res.status(400).send(err);
   }
 };
 
@@ -22,6 +23,7 @@ export const getNearby = async (req, res) => {
     }
   } catch (err) {
     console.log('getNearby', err);
+    res.status(400).send(err);
   }
 };
 
