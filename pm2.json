@@ -1,0 +1,8 @@
+{
+  "apps" : [{
+    "name": "Rest server",
+    "script": "npm",
+    "args": "start",
+    "cwd": "/home/ec2-user/adventar-api"
+  }]
+}
