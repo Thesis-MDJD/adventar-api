@@ -2,8 +2,13 @@ import axios from 'axios';
 
 export const getBusinessById = async (req, res) => {
   try {
-    const data = await yelpRequest(`${req.params.id}`);
-    res.json(data);
+    const key = process.env.REST_API_KEY;
+    if (key !== req.query.API_KEY) {
+      res.status(403).send('Invalid request');
+    } else {
+      const data = await yelpRequest(`${req.params.id}`);
+      res.json(data);
+    }
   } catch (err) {
     console.log('getBusinessById', err);
     res.status(400).send(err);
@@ -14,8 +19,11 @@ export const getNearby = async (req, res) => {
   try {
     const lat = req.query.latitude;
     const long = req.query.longitude;
+    const key = process.env.REST_API_KEY;
     const radius = 1609; // 1 mile
-    if (lat && long) {
+    if (key !== req.query.API_KEY) {
+      res.status(403).send('Invalid request');
+    } else if (lat && long) {
       const data = await yelpRequest(`search?term=food&latitude=${lat}&longitude=${long}&radius=${radius}&limit=50&sort_by=distance`);
       res.json(data);
     } else {
